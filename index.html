@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Quiz · Como se preparar para uma entrevista de emprego</title>
+<style>
+:root{
+  --bg:#FBF6EC; --surface:#FFFFFF; --ink:#14213D; --ink-2:#4A5568;
+  --line:#14213D; --line-soft:#E4DBC8; --shadow:#14213D;
+  --accent:#FCA311; --accent-soft:#FFF0D0;
+  --btn-bg:#14213D; --btn-fg:#FFFFFF;
+  --good:#146C3E; --good-bg:#E4F5EA; --bad:#B3261E; --bad-bg:#FDECEA;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0F1828; --surface:#182440; --ink:#F6F1E7; --ink-2:#B8C2D6;
+    --line:#5B6B8F; --line-soft:#2A3857; --shadow:#05080F;
+    --accent:#FCA311; --accent-soft:#3A2E12;
+    --btn-bg:#FCA311; --btn-fg:#14213D;
+    --good:#6EE7A0; --good-bg:#12301F; --bad:#FF9C94; --bad-bg:#3A1816;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;min-height:100vh}
+[hidden]{display:none!important}
+.app{max-width:640px;margin:0 auto;padding:22px 16px 64px}
+[tabindex="-1"]:focus{outline:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+h1,h2,h3,p{margin:0}
+.tela{display:flex;flex-direction:column;gap:18px}
+@media (prefers-reduced-motion:no-preference){
+  .tela:not([hidden]){animation:sobe .35s ease both}
+  @keyframes sobe{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+}
+
+/* ---------- início ---------- */
+.selo-topo{align-self:flex-start;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:#14213D;padding:6px 12px;border-radius:99px;border:2px solid var(--line)}
+.ilustra{width:150px;height:auto;margin:4px 0 -4px}
+h1{font-size:clamp(30px,8vw,42px);line-height:1.1;font-weight:850;letter-spacing:-.02em}
+mark{color:inherit;background:linear-gradient(transparent 62%,var(--accent) 62%);padding:0 2px}
+.lead{color:var(--ink-2);font-size:19px}
+.pilulas{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.pilulas li{font-size:15px;font-weight:700;padding:6px 12px;border:2px solid var(--line);border-radius:99px;background:var(--surface)}
+#form-inicio{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.rotulo{font-weight:700}
+.rotulo span{font-weight:500;color:var(--ink-2)}
+input[type=text]{width:100%;font:inherit;padding:14px 16px;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink)}
+input[type=text]::placeholder{color:var(--ink-2);opacity:.7}
+.rodape-hist{margin-top:10px;padding-top:16px;border-top:2px dashed var(--line-soft);display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--ink-2)}
+.rodape-hist .acoes-mini{display:flex;flex-wrap:wrap;gap:4px 14px}
+.link-btn{font:inherit;font-weight:700;color:var(--ink);background:none;border:0;padding:6px 0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.credito{font-size:13px}
+
+/* ---------- botões ---------- */
+.btn{font:inherit;font-weight:750;min-height:54px;padding:12px 20px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:0 3px 0 var(--shadow);transition:transform .08s,box-shadow .08s,opacity .15s}
+.btn:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 var(--shadow)}
+.btn-primario{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
+.btn-perigo{color:var(--bad);border-color:var(--bad);box-shadow:0 3px 0 var(--bad)}
+.btn-grande{min-height:58px;font-size:19px}
+.btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+
+/* ---------- quiz ---------- */
+.topo-quiz{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.prog-texto{font-weight:800}
+.chip{font-size:14px;font-weight:700;padding:4px 12px;border-radius:99px;background:var(--accent-soft);border:2px solid var(--line)}
+.barra{height:14px;border:2px solid var(--line);border-radius:99px;background:var(--line-soft);overflow:hidden}
+.barra i{display:block;height:100%;background:var(--ink);border-radius:99px;transition:width .35s ease}
+#form-quiz{display:flex;flex-direction:column;gap:18px}
+#pergunta{font-size:clamp(22px,5.6vw,28px);line-height:1.25;font-weight:800;margin-top:4px}
+.opcoes{display:flex;flex-direction:column;gap:12px}
+.opcao{position:relative;display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:66px;background:var(--surface);border:2px solid var(--line);border-radius:14px;box-shadow:0 3px 0 var(--shadow);cursor:pointer;transition:background .12s,transform .08s}
+.opcao:hover{background:var(--accent-soft)}
+.opcao input{position:absolute;opacity:0;width:1px;height:1px}
+.opcao input:focus-visible ~ .letra{box-shadow:0 0 0 3px var(--surface),0 0 0 6px var(--ink)}
+.opcao:has(input:focus-visible){outline:3px solid var(--ink);outline-offset:3px}
+.letra{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-weight:850;background:var(--bg)}
+.texto{font-weight:600;line-height:1.35}
+.opcao.sel{background:var(--accent-soft);border-width:3px;padding:13px 15px;transform:translateY(1px)}
+.opcao.sel .letra{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* ---------- resultado ---------- */
+.placar{display:flex;align-items:center;gap:20px;padding:20px;background:var(--surface);border:2px solid var(--line);border-radius:20px;box-shadow:0 4px 0 var(--shadow)}
+.anel{position:relative;flex:none;width:132px;height:132px}
+.anel svg{width:100%;height:100%;display:block}
+.anel-trilho{fill:none;stroke:var(--line-soft);stroke-width:12}
+.anel-valor{fill:none;stroke:var(--ink);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)}
+.anel-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.anel-num b{font-size:38px;font-weight:900}
+.anel-num span{font-size:14px;color:var(--ink-2);font-weight:700;margin-top:4px}
+.placar-txt{display:flex;flex-direction:column;gap:6px}
+.nivel{font-size:26px;line-height:1.15;font-weight:850}
+.pct{font-size:15px;font-weight:800;color:var(--ink-2)}
+#res-nome{min-height:0}
+.bloco{display:flex;flex-direction:column;gap:12px}
+.bloco h3{font-size:20px;font-weight:850}
+.resumo{font-size:18px}
+.eixo-topo{display:flex;justify-content:space-between;font-weight:700;margin-bottom:6px}
+.trilho{height:14px;border:2px solid var(--line);border-radius:99px;background:var(--line-soft);overflow:hidden}
+.trilho i{display:block;height:100%;background:var(--ink);border-radius:99px}
+.eixos{display:flex;flex-direction:column;gap:14px}
+.ponto{display:flex;flex-direction:column;gap:8px;padding:16px;background:var(--surface);border:2px solid var(--line);border-radius:16px;box-shadow:0 3px 0 var(--shadow)}
+.ponto-topo{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.selo{font-size:13px;font-weight:850;padding:3px 10px;border-radius:99px;background:var(--bad-bg);color:var(--bad);border:2px solid var(--bad)}
+.ponto-topo strong{font-size:18px}
+.ponto-q{color:var(--ink-2);font-size:16px}
+.linha{font-size:16px}
+.linha b{font-weight:800}
+.linha.certa{color:var(--good)}
+.dica{margin-top:2px;padding:10px 12px;background:var(--accent-soft);border-left:5px solid var(--accent);border-radius:8px;font-size:16px}
+.dica b{font-weight:850}
+.fortes{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.fortes li{font-size:15px;font-weight:700;padding:5px 12px;border-radius:99px;background:var(--good-bg);color:var(--good);border:2px solid var(--good)}
+.vazio{padding:16px;border-radius:16px;background:var(--good-bg);color:var(--good);border:2px solid var(--good);font-weight:700}
+.acoes{display:grid;gap:12px;margin-top:6px}
+@media (min-width:560px){
+  .acoes{grid-template-columns:1fr 1fr}
+  .acoes .btn-primario{grid-column:1/-1}
+}
+.status{font-size:15px;color:var(--ink-2)}
+.status.aviso-forte{color:var(--bad);font-weight:700}
+@media (max-width:420px){
+  .placar{flex-direction:column;text-align:center;gap:14px}
+  .placar-txt{align-items:center}
+}
+
+/* ---------- aviso e modal ---------- */
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,30px);max-width:min(92vw,520px);padding:12px 18px;background:var(--ink);color:var(--bg);border-radius:14px;font-weight:700;font-size:16px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:30;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,15,30,.6)}
+.modal-caixa{width:100%;max-width:440px;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 0 var(--shadow)}
+.modal-caixa h2{font-size:22px;font-weight:850}
+.modal-acoes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+</style>
+</head>
+<body>
+<main class="app">
+
+  <!-- TELA 1: INÍCIO -->
+  <section id="tela-inicio" class="tela" aria-labelledby="titulo-inicio">
+    <span class="selo-topo">Quiz rápido · Projeto de extensão</span>
+    <svg class="ilustra" viewBox="0 0 160 100" aria-hidden="true">
+      <path d="M14 14h78a10 10 0 0 1 10 10v30a10 10 0 0 1-10 10H48l-16 14V64H14A10 10 0 0 1 4 54V24A10 10 0 0 1 14 14z" fill="var(--accent)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M22 34h50M22 46h32" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M68 36h78a10 10 0 0 1 10 10v30a10 10 0 0 1-10 10h-18v12l-16-12H68a10 10 0 0 1-10-10V46A10 10 0 0 1 68 36z" fill="var(--surface)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="92" cy="66" r="4.5" fill="var(--ink)"/><circle cx="107" cy="66" r="4.5" fill="var(--ink)"/><circle cx="122" cy="66" r="4.5" fill="var(--ink)"/>
+    </svg>
+    <h1 id="titulo-inicio" tabindex="-1">Como se preparar para uma <mark>entrevista de emprego</mark></h1>
+    <p class="lead">Veja o quanto você já sabe sobre como se comportar em uma entrevista de emprego: roupa, postura, confiança e muito mais. São 10 perguntas simples, com uma resposta certa em cada uma. No final, você recebe sua pontuação e um resumo do que pode melhorar.</p>
+    <ul class="pilulas"><li>10 perguntas</li><li>cerca de 2 minutos</li><li>resultado na hora</li></ul>
+    <form id="form-inicio" autocomplete="off">
+      <label for="nome" class="rotulo">Seu nome <span>(opcional)</span></label>
+      <input id="nome" type="text" maxlength="60" autocomplete="off" placeholder="Ex.: Maria">
+      <button type="submit" class="btn btn-primario btn-grande">Começar o quiz</button>
+    </form>
+    <footer class="rodape-hist">
+      <p class="contagem"></p>
+      <div class="acoes-mini">
+        <button type="button" class="link-btn" data-acao="exportar">Exportar histórico (JSON)</button>
+        <button type="button" class="link-btn" data-acao="resetar">Resetar histórico</button>
+      </div>
+      <p class="credito">Inspirado na apresentação “Como se preparar para uma entrevista de emprego”.</p>
+    </footer>
+  </section>
+
+  <!-- TELA 2: PERGUNTAS -->
+  <section id="tela-quiz" class="tela" hidden aria-label="Pergunta do quiz">
+    <div class="topo-quiz">
+      <span id="prog-texto" class="prog-texto"></span>
+      <span id="chip-eixo" class="chip"></span>
+    </div>
+    <div class="barra" id="barra" role="progressbar" aria-label="Progresso do quiz" aria-valuemin="0" aria-valuemax="10"><i id="barra-fill"></i></div>
+    <form id="form-quiz" novalidate>
+      <h2 id="pergunta" tabindex="-1"></h2>
+      <div id="opcoes" class="opcoes" role="radiogroup" aria-labelledby="pergunta"></div>
+      <button id="btn-prox" type="submit" class="btn btn-primario btn-grande" disabled>Próxima</button>
+    </form>
+  </section>
+
+  <!-- TELA 3: RESULTADO -->
+  <section id="tela-resultado" class="tela" hidden aria-label="Resultado do quiz">
+    <span class="selo-topo" id="res-selo">Seu resultado</span>
+    <div class="placar">
+      <div class="anel">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="anel-trilho" cx="60" cy="60" r="54"/>
+          <circle class="anel-valor" id="anel-valor" cx="60" cy="60" r="54" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="anel-num"><b id="res-pontos">0</b><span>de 10</span></div>
+      </div>
+      <div class="placar-txt">
+        <h2 class="nivel" id="titulo-res" tabindex="-1"></h2>
+        <p id="res-msg"></p>
+        <p class="pct" id="res-pct"></p>
+      </div>
+    </div>
+
+    <div class="bloco"><h3>Resumo</h3><p class="resumo" id="res-resumo"></p></div>
+    <div class="bloco"><h3>Desempenho por eixo</h3><div class="eixos" id="res-eixos"></div></div>
+    <div class="bloco"><h3>Pontos para melhorar</h3><div id="res-melhorar" class="bloco"></div></div>
+    <div class="bloco" id="bloco-fortes"><h3>O que você já faz bem</h3><ul class="fortes" id="res-fortes"></ul></div>
+
+    <div class="acoes">
+      <button type="button" class="btn btn-primario btn-grande" data-acao="recomecar">Recomeçar o quiz</button>
+      <button type="button" class="btn" data-acao="exportar">Exportar respostas (JSON)</button>
+      <button type="button" class="btn btn-perigo" data-acao="resetar">Resetar histórico</button>
+    </div>
+    <p class="status" id="status-hist" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+  <div class="modal-caixa">
+    <h2 id="modal-titulo">Apagar todo o histórico?</h2>
+    <p id="modal-texto"></p>
+    <div class="modal-acoes">
+      <button type="button" class="btn" id="modal-cancelar">Cancelar</button>
+      <button type="button" class="btn btn-perigo" id="modal-ok">Sim, apagar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= CONTEÚDO (baseado na apresentação) ================= */
+  const TITULO = "Quiz: Como se comportar em uma entrevista de emprego";
+  const EIXOS = ["Aparência e chegada", "Postura e comunicação", "Confiança e conduta"];
+
+  const QUESTOES = [
+    { eixo: 0, tema: "Roupas adequadas",
+      pergunta: "Qual roupa é mais adequada para uma entrevista de emprego?",
+      opcoes: [
+        { t: "Roupa limpa, passada e discreta, adequada ao tipo de vaga", ok: true },
+        { t: "Roupa de festa ou bem chamativa, para chamar a atenção",
+          dica: "O objetivo não é chamar atenção pela roupa. Não precisa ser cara: precisa ser limpa, passada, discreta e combinar com o tipo de vaga." },
+        { t: "Roupa de academia ou chinelo, porque é mais confortável",
+          dica: "Roupas muito informais, como de academia, chinelo ou boné, passam falta de cuidado. Escolha algo confortável, mas apropriado para um ambiente de trabalho." }
+      ] },
+    { eixo: 0, tema: "Cuidado pessoal",
+      pergunta: "Que cuidado pessoal faz diferença antes de sair de casa?",
+      opcoes: [
+        { t: "Usar bastante perfume para deixar uma boa impressão",
+          dica: "Perfume em excesso incomoda, principalmente em sala fechada. Use pouco ou nenhum." },
+        { t: "Banho tomado, cabelo e unhas arrumados e perfume discreto (ou nenhum)", ok: true },
+        { t: "Não se preocupar com isso, porque só o que você fala importa",
+          dica: "A aparência também comunica. Higiene e cuidado pessoal mostram respeito pela empresa e por você, e fazem parte da primeira impressão." }
+      ] },
+    { eixo: 0, tema: "Pontualidade",
+      pergunta: "Qual é o melhor horário para chegar à entrevista?",
+      opcoes: [
+        { t: "Na hora exata, ou até um pouquinho depois, sem pressa",
+          dica: "Chegar atrasado ou correndo passa falta de responsabilidade. Planeje o trajeto (ou a conexão, se for online) e chegue com antecedência." },
+        { t: "Mais de uma hora antes, para esperar na porta",
+          dica: "Chegar cedo demais também atrapalha a recepção. O ideal é chegar uns 10 a 15 minutos antes, depois de planejar o trajeto." },
+        { t: "Cerca de 10 a 15 minutos antes do horário marcado", ok: true }
+      ] },
+    { eixo: 0, tema: "Uso do celular",
+      pergunta: "O que fazer com o celular durante a entrevista?",
+      opcoes: [
+        { t: "Deixar no silencioso e guardado na bolsa ou no bolso", ok: true },
+        { t: "Deixar em cima da mesa, para atender se alguém ligar",
+          dica: "Celular à vista distrai e passa a ideia de que a entrevista não é prioridade. Deixe no silencioso e guardado." },
+        { t: "Olhar as mensagens quando o entrevistador estiver escrevendo",
+          dica: "Mexer no celular durante a conversa mostra falta de atenção e de respeito. Dê toda a sua atenção ao entrevistador." }
+      ] },
+    { eixo: 1, tema: "Cumprimento e educação",
+      pergunta: "Como cumprimentar as pessoas ao chegar?",
+      opcoes: [
+        { t: "Sem falar nada, esperando que falem com você primeiro",
+          dica: "Cumprimente com um bom dia ou boa tarde. A educação com a portaria, a recepção e a equipe também conta na avaliação." },
+        { t: "Com bom dia ou boa tarde, sorriso e educação com todos, até na recepção", ok: true },
+        { t: "Com gírias e brincadeiras, para criar intimidade",
+          dica: "Seja simpático, mas mantenha o respeito e uma linguagem adequada. Gírias e brincadeiras em excesso parecem falta de seriedade." }
+      ] },
+    { eixo: 1, tema: "Postura sentada",
+      pergunta: "Qual é a melhor postura sentado durante a entrevista?",
+      opcoes: [
+        { t: "Encostar-se na cadeira, com os braços cruzados",
+          dica: "Braços cruzados e corpo largado passam desinteresse ou defesa. Sente com a coluna reta e os ombros relaxados." },
+        { t: "Balançar a perna ou mexer na caneta o tempo todo",
+          dica: "Movimentos repetitivos denunciam o nervosismo e distraem. Mantenha as mãos à vista e os pés apoiados no chão." },
+        { t: "Sentar com a coluna reta, ombros relaxados e mãos à vista", ok: true }
+      ] },
+    { eixo: 1, tema: "Contato visual",
+      pergunta: "Para onde olhar durante a conversa?",
+      opcoes: [
+        { t: "Para o entrevistador, de forma natural, sem encarar o tempo todo", ok: true },
+        { t: "Para o chão ou para as próprias mãos, para não se distrair",
+          dica: "Evitar o olhar passa insegurança ou desinteresse. Olhe para quem fala com você, de forma natural e acolhedora." },
+        { t: "Direto nos olhos, sem piscar, para mostrar firmeza",
+          dica: "Encarar demais incomoda. O contato visual deve ser natural, com pequenos intervalos, como numa conversa comum." }
+      ] },
+    { eixo: 2, tema: "Calma e respiração",
+      pergunta: "Você sentiu nervosismo no início da entrevista. O que ajuda?",
+      opcoes: [
+        { t: "Falar bem rápido para terminar logo",
+          dica: "Falar rápido aumenta o nervosismo e atrapalha a clareza. Respire, fale com calma e faça pausas antes de responder: isso mostra maturidade." },
+        { t: "Respirar fundo, falar com calma e fazer pausas antes de responder", ok: true },
+        { t: "Responder só “sim” ou “não” para não errar",
+          dica: "Respostas muito curtas não mostram quem você é. Ficar nervoso é normal: respire, organize a ideia e explique com suas palavras." }
+      ] },
+    { eixo: 2, tema: "Confiança sem arrogância",
+      pergunta: "Como mostrar confiança sem parecer arrogante?",
+      opcoes: [
+        { t: "Dizer que é o melhor candidato e que não precisa aprender nada",
+          dica: "Confiança é diferente de arrogância. Seja honesto sobre seus pontos fortes e mostre vontade de aprender: isso passa maturidade." },
+        { t: "Falar com segurança das suas qualidades e reconhecer o que ainda quer aprender", ok: true },
+        { t: "Falar pouco das suas qualidades, para parecer humilde",
+          dica: "Humildade não é se esconder. Fale com segurança do que você sabe fazer, citando exemplos do seu dia a dia." }
+      ] },
+    { eixo: 2, tema: "Despedida",
+      pergunta: "Como é melhor encerrar a entrevista?",
+      opcoes: [
+        { t: "Sair rápido, sem se despedir, para não atrapalhar",
+          dica: "Despeça-se com educação. Agradecer pela oportunidade deixa uma boa última impressão." },
+        { t: "Relaxar a postura e fazer piadas assim que a conversa acaba",
+          dica: "A avaliação só termina quando você sai da empresa. Mantenha a mesma postura e a mesma educação até a saída, inclusive com a recepção." },
+        { t: "Agradecer pela oportunidade, despedir-se com educação e manter a postura até sair", ok: true }
+      ] }
+  ];
+  const N = QUESTOES.length;
+
+  /* ================= UTILIDADES ================= */
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const pad = n => String(n).padStart(2, "0");
+  const lista = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " e " + a[a.length - 1];
+  const plural = (n, um, varios) => n === 1 ? um : varios;
+
+  function el(tag, props, ...kids) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (k === "class") n.className = v;
+      else if (k === "text") n.textContent = v;
+      else n.setAttribute(k, v);
+    }
+    kids.flat().forEach(c => { if (c != null) n.append(c); });
+    return n;
+  }
+  function embaralhar(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  /* ================= HISTÓRICO (localStorage, com reserva em memória) ================= */
+  const CHAVE = "quiz_entrevista_comportamento_v2";
+  let memoria = [];
+  let storageOk = true;
+
+  function lerHistorico() {
+    if (!storageOk) return memoria;
+    try {
+      const raw = localStorage.getItem(CHAVE);
+      const a = raw ? JSON.parse(raw) : [];
+      return Array.isArray(a) ? a : [];
+    } catch (e) {
+      if (e instanceof SyntaxError) return [];
+      storageOk = false;
+      return memoria;
+    }
+  }
+  function gravarHistorico(a) {
+    memoria = a;
+    if (!storageOk) return false;
+    try { localStorage.setItem(CHAVE, JSON.stringify(a)); return true; }
+    catch (e) { storageOk = false; return false; }
+  }
+
+  /* ================= AVISOS ================= */
+  let tToast;
+  function aviso(msg) {
+    const t = $("#toast");
+    t.textContent = msg;
+    t.classList.add("on");
+    clearTimeout(tToast);
+    tToast = setTimeout(() => t.classList.remove("on"), 4200);
+  }
+  function setStatus(msg, forte) {
+    const s = $("#status-hist");
+    s.textContent = msg;
+    s.classList.toggle("aviso-forte", !!forte);
+  }
+  function atualizarContagem() {
+    const n = lerHistorico().length;
+    let txt = n + " " + plural(n, "tentativa salva", "tentativas salvas") + " neste aparelho.";
+    if (!storageOk) txt += " Atenção: este navegador não guarda o histórico; as respostas ficam só enquanto esta página estiver aberta.";
+    $$(".contagem").forEach(c => c.textContent = txt);
+  }
+
+  /* ================= TELAS ================= */
+  let telaAtual = "inicio";
+  function mostrar(nome) {
+    telaAtual = nome;
+    $$(".tela").forEach(t => { t.hidden = t.id !== "tela-" + nome; });
+    window.scrollTo(0, 0);
+    const alvo = { inicio: "#titulo-inicio", quiz: "#pergunta", resultado: "#titulo-res" }[nome];
+    const h = $(alvo);
+    if (h) h.focus({ preventScroll: true });
+  }
+
+  /* ================= QUIZ ================= */
+  let estado = null;
+
+  function iniciar() {
+    estado = {
+      nome: $("#nome").value.trim().slice(0, 60),
+      i: 0,
+      ordens: QUESTOES.map(q => embaralhar(q.opcoes.map((_, k) => k))),
+      escolhas: [],
+      finalizado: false
+    };
+    mostrar("quiz");
+    renderPergunta();
+  }
+
+  function renderPergunta() {
+    const q = QUESTOES[estado.i];
+    $("#prog-texto").textContent = "Pergunta " + (estado.i + 1) + " de " + N;
+    $("#barra-fill").style.width = ((estado.i + 1) / N * 100) + "%";
+    $("#barra").setAttribute("aria-valuenow", String(estado.i + 1));
+    $("#chip-eixo").textContent = EIXOS[q.eixo];
+    $("#pergunta").textContent = q.pergunta;
+
+    const caixa = $("#opcoes");
+    caixa.textContent = "";
+    estado.ordens[estado.i].forEach((k, pos) => {
+      const id = "op-" + estado.i + "-" + k;
+      const input = el("input", { type: "radio", name: "op", value: String(k), id: id });
+      const rotulo = el("label", { class: "opcao", for: id },
+        input,
+        el("span", { class: "letra", "aria-hidden": "true", text: "ABC"[pos] }),
+        el("span", { class: "texto", text: q.opcoes[k].t }));
+      input.addEventListener("change", () => {
+        $$(".opcao", caixa).forEach(l => l.classList.toggle("sel", $("input", l).checked));
+        $("#btn-prox").disabled = false;
+      });
+      caixa.append(rotulo);
+    });
+
+    const btn = $("#btn-prox");
+    btn.disabled = true;
+    btn.textContent = estado.i === N - 1 ? "Ver resultado" : "Próxima";
+    window.scrollTo(0, 0);
+    $("#pergunta").focus({ preventScroll: true });
+  }
+
+  $("#form-quiz").addEventListener("submit", e => {
+    e.preventDefault();
+    const sel = $("#opcoes input:checked");
+    if (!sel || !estado || estado.finalizado) return;
+    estado.escolhas.push(Number(sel.value));
+    if (estado.i < N - 1) { estado.i++; renderPergunta(); }
+    else finalizar();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (telaAtual !== "quiz" || e.ctrlKey || e.metaKey || e.altKey || !$("#modal").hidden) return;
+    if (e.key >= "1" && e.key <= "3") {
+      const r = $$("#opcoes input")[Number(e.key) - 1];
+      if (r) { r.checked = true; r.dispatchEvent(new Event("change", { bubbles: true })); r.focus(); }
+    }
+  });
+
+  /* ================= RESULTADO ================= */
+  function nivel(p) {
+    if (p >= 9) return { nome: "Excelente", msg: "Você mostrou ótimo preparo para a entrevista." };
+    if (p >= 7) return { nome: "Muito bom", msg: "Você já domina boa parte do que importa. Falta pouco." };
+    if (p >= 5) return { nome: "Bom começo", msg: "Você já sabe o essencial, mas vale reforçar alguns pontos." };
+    return { nome: "Vamos praticar mais", msg: "Tudo bem: revisar o material e treinar ajuda muito. Veja as dicas abaixo." };
+  }
+
+  function finalizar() {
+    estado.finalizado = true;
+    const itens = QUESTOES.map((q, i) => {
+      const op = q.opcoes[estado.escolhas[i]];
+      return { n: i + 1, q: q, op: op, certa: q.opcoes.find(o => o.ok), acertou: !!op.ok };
+    });
+    const pontos = itens.filter(x => x.acertou).length;
+    const eixos = EIXOS.map((nome, e) => {
+      const its = itens.filter(x => x.q.eixo === e);
+      return { nome: nome, acertos: its.filter(x => x.acertou).length, total: its.length };
+    });
+    const nv = nivel(pontos);
+    const erradas = itens.filter(x => !x.acertou);
+    const agora = new Date();
+
+    const hist = lerHistorico();
+    const numero = hist.reduce((m, t) => Math.max(m, t.numero || 0), 0) + 1;
+    const tentativa = {
+      numero: numero,
+      data_hora: agora.toISOString(),
+      data_hora_local: agora.toLocaleString("pt-BR"),
+      nome: estado.nome || null,
+      pontuacao: pontos,
+      total_perguntas: N,
+      percentual: Math.round(pontos / N * 100),
+      nivel: nv.nome,
+      desempenho_por_eixo: eixos,
+      pontos_a_melhorar: erradas.map(x => x.q.tema),
+      respostas: itens.map(x => ({
+        pergunta_numero: x.n,
+        eixo: EIXOS[x.q.eixo],
+        tema: x.q.tema,
+        pergunta: x.q.pergunta,
+        resposta_escolhida: x.op.t,
+        resposta_correta: x.certa.t,
+        acertou: x.acertou
+      }))
+    };
+    hist.push(tentativa);
+    const salvou = gravarHistorico(hist);
+
+    renderResultado({ itens, pontos, eixos, nv, erradas, nome: estado.nome });
+    if (salvou) setStatus("Resultado salvo no histórico (tentativa nº " + numero + "). Total neste aparelho: " + hist.length + ".");
+    else setStatus("Atenção: este navegador não permite guardar o histórico (talvez a janela seja privada). As respostas ficam só enquanto esta página estiver aberta. Exporte o JSON antes de fechar.", true);
+    atualizarContagem();
+    mostrar("resultado");
+  }
+
+  function renderResultado(r) {
+    $("#res-selo").textContent = r.nome ? "Resultado de " + r.nome : "Seu resultado";
+    $("#res-pontos").textContent = String(r.pontos);
+    $("#titulo-res").textContent = r.nv.nome + "!";
+    $("#res-msg").textContent = r.nv.msg;
+    $("#res-pct").textContent = Math.round(r.pontos / N * 100) + "% de acertos";
+
+    // anel de pontuação
+    const anel = $("#anel-valor");
+    const C = 2 * Math.PI * 54;
+    anel.style.strokeDasharray = String(C);
+    anel.style.strokeDashoffset = String(C);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      anel.style.strokeDashoffset = String(C * (1 - r.pontos / N));
+    }));
+
+    // resumo (depende das respostas)
+    let resumo;
+    if (r.erradas.length === 0) {
+      resumo = "Você acertou todas as " + N + " perguntas! Continue praticando: simulações de entrevista e conversas com devolutivas ajudam a manter a segurança.";
+    } else {
+      const fortes = r.eixos.filter(e => e.acertos === e.total).map(e => e.nome);
+      const fracos = r.eixos.filter(e => e.acertos < e.total)
+        .sort((a, b) => a.acertos / a.total - b.acertos / b.total)
+        .map(e => e.nome + " (" + e.acertos + " de " + e.total + ")");
+      resumo = "Você acertou " + r.pontos + " de " + N + " perguntas.";
+      if (fortes.length) resumo += " Foi muito bem em " + lista(fortes) + ".";
+      resumo += " Pede mais atenção: " + lista(fracos) + ". Veja abaixo, ponto a ponto, o que ajustar.";
+    }
+    $("#res-resumo").textContent = resumo;
+
+    // barras por eixo
+    const eixosBox = $("#res-eixos");
+    eixosBox.textContent = "";
+    r.eixos.forEach(e => {
+      const barra = el("i");
+      barra.style.width = (e.acertos / e.total * 100) + "%";
+      eixosBox.append(el("div", { class: "eixo" },
+        el("div", { class: "eixo-topo" }, el("span", { text: e.nome }), el("strong", { text: e.acertos + "/" + e.total })),
+        el("div", { class: "trilho", role: "img", "aria-label": e.nome + ": " + e.acertos + " de " + e.total }, barra)));
+    });
+
+    // pontos a melhorar
+    const mel = $("#res-melhorar");
+    mel.textContent = "";
+    if (!r.erradas.length) {
+      mel.append(el("p", { class: "vazio", text: "Nenhum ponto a melhorar desta vez. Parabéns!" }));
+    } else {
+      r.erradas.forEach(x => {
+        mel.append(el("article", { class: "ponto" },
+          el("div", { class: "ponto-topo" }, el("span", { class: "selo", text: "✕ Revisar" }), el("strong", { text: x.q.tema })),
+          el("p", { class: "ponto-q", text: x.q.pergunta }),
+          el("p", { class: "linha" }, el("b", { text: "Você marcou: " }), x.op.t),
+          el("p", { class: "linha certa" }, el("b", { text: "Mais adequado: " }), x.certa.t),
+          el("p", { class: "dica" }, el("b", { text: "Dica: " }), x.op.dica)));
+      });
+    }
+
+    // pontos fortes
+    const fortes = r.itens.filter(x => x.acertou);
+    const fb = $("#res-fortes");
+    fb.textContent = "";
+    fortes.forEach(x => fb.append(el("li", { text: "✓ " + x.q.tema })));
+    $("#bloco-fortes").hidden = fortes.length === 0;
+  }
+
+  /* ================= EXPORTAR / RESETAR ================= */
+  function exportar() {
+    const hist = lerHistorico();
+    if (!hist.length) { aviso("Ainda não há respostas salvas para exportar."); return; }
+    const media = hist.reduce((s, t) => s + (t.pontuacao || 0), 0) / hist.length;
+    const dados = {
+      titulo: TITULO,
+      exportado_em: new Date().toISOString(),
+      total_tentativas: hist.length,
+      media_pontuacao: Math.round(media * 10) / 10,
+      pontuacao_maxima: N,
+      tentativas: hist
+    };
+    const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const d = new Date();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "historico-quiz-entrevista-" + d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + ".json";
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    aviso("Arquivo exportado com " + hist.length + " " + plural(hist.length, "tentativa", "tentativas") + ".");
+  }
+
+  let focoAntes = null;
+  function abrirModal() {
+    const n = lerHistorico().length;
+    if (!n) { aviso("O histórico já está vazio."); return; }
+    focoAntes = document.activeElement;
+    $("#modal-texto").textContent = "Isso vai apagar " + n + " " + plural(n, "tentativa salva", "tentativas salvas") +
+      " neste aparelho. Se quiser guardar uma cópia, exporte o JSON antes. Não dá para desfazer.";
+    $("#modal").hidden = false;
+    $("#modal-cancelar").focus();
+  }
+  function fecharModal() {
+    $("#modal").hidden = true;
+    if (focoAntes && focoAntes.focus) focoAntes.focus();
+    focoAntes = null;
+  }
+  function resetar() {
+    gravarHistorico([]);
+    fecharModal();
+    atualizarContagem();
+    setStatus("Histórico apagado. Total neste aparelho: 0.");
+    aviso("Histórico apagado.");
+  }
+
+  /* ================= EVENTOS ================= */
+  $("#form-inicio").addEventListener("submit", e => { e.preventDefault(); iniciar(); });
+
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-acao]");
+    if (!b) return;
+    const acao = b.dataset.acao;
+    if (acao === "recomecar") { $("#nome").value = ""; estado = null; atualizarContagem(); mostrar("inicio"); }
+    else if (acao === "exportar") exportar();
+    else if (acao === "resetar") abrirModal();
+  });
+
+  $("#modal-ok").addEventListener("click", resetar);
+  $("#modal-cancelar").addEventListener("click", fecharModal);
+  $("#modal").addEventListener("click", e => { if (e.target === $("#modal")) fecharModal(); });
+  $("#modal").addEventListener("keydown", e => {
+    if (e.key === "Escape") { fecharModal(); return; }
+    if (e.key === "Tab") {
+      const b = [$("#modal-cancelar"), $("#modal-ok")];
+      const i = b.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); b[1].focus(); }
+      else if (!e.shiftKey && i === 1) { e.preventDefault(); b[0].focus(); }
+    }
+  });
+
+  atualizarContagem();
+})();
+</script>
+</body>
+</html>
